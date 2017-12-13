@@ -13,10 +13,10 @@ read NAME
 
 echo 'Creating "/var/www/vhosts/'$NAME'/httpdocs'
 mkdir -p /var/www/vhosts/$NAME/httpdocs
-chown -R dev:users /var/www/vhosts/$NAME
+#chown -R dev:users /var/www/vhosts/$NAME
 
 echo 'Creating "'$APACHE$NAME'"'
-cat > $APACHE$NAME << EOF
+cat > $APACHE$NAME'.conf' << EOF
 <VirtualHost *:80>
         ServerAdmin webmaster@ekoster.nl
         ServerName $NAME
@@ -79,7 +79,7 @@ cat > $APACHE$NAME << EOF
 </IfModule>
 EOF
  
-if [ ! -f $APACHE$NAME ]
+if [ ! -f $APACHE$NAME'.conf' ]
 then
         echo 'E: There was an error creating the domain'
         exit 1
@@ -95,7 +95,7 @@ then
 fi
 echo 'Success'
 a2ensite $NAME
-if [ ! -f /etc/apache2/sites-enabled/$NAME ]
+if [ ! -f /etc/apache2/sites-enabled/$NAME'.conf' ]
 then
         echo 'E: There was an error activating the site'
         exit 0
